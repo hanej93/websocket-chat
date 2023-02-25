@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:chat
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  freemarker:
+    cache: false
+    template-loader-path: classpath:/templates
+    suffix: .ftl
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        #        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
+  #    open-in-view: false
+
+  output.ansi: enabled=always
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+    add-properties: true
