@@ -1,6 +1,6 @@
 spring:
-  profiles:
-    active: local
+  jwt:
+    secret: govlepel@$&
 
   datasource:
     url: jdbc:h2:mem:chat
