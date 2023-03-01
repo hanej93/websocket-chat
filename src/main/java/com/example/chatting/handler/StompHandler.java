@@ -28,7 +28,9 @@ public class StompHandler implements ChannelInterceptor {
     // websocket을 통해 들어온 요청이 처리 되기전 실행된다.
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
+    	
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
+        
         if (StompCommand.CONNECT == accessor.getCommand()) { // websocket 연결요청
 
             String jwtToken = accessor.getFirstNativeHeader("token");
@@ -36,6 +38,7 @@ public class StompHandler implements ChannelInterceptor {
 
             // Header의 jwt token 검증
             jwtTokenProvider.validateToken(jwtToken);
+            
         } else if (StompCommand.SUBSCRIBE == accessor.getCommand()) { // 채팅룸
 
             // header정보에서 구독 destination정보를 얻고, roomId를 추출한다.
@@ -53,6 +56,7 @@ public class StompHandler implements ChannelInterceptor {
             chatService.sendChatMessage(ChatMessage.builder().type(ChatMessage.MessageType.ENTER).roomId(roomId).sender(name).build());
 
             log.info("SUBSCRIBED {}, {}", name, roomId);
+            
         } else if (StompCommand.DISCONNECT == accessor.getCommand()) { // Websocket 연결
 
             // 연결이 종료된 클라이언트 sesssionId로 채팅방 id를 얻는다.

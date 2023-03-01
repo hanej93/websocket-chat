@@ -15,7 +15,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisConfig {
 
     /**
-            * 단일 Topic 사용을 위한 Bean 설정
+     * 단일 Topic 사용을 위한 Bean 설정
      */
     @Bean
     public ChannelTopic channelTopic() {
